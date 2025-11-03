@@ -1,0 +1,42 @@
+﻿classDiagram
+    class WorkspaceService {
+        +async GetWorkspaceAsync() Task
+        +async GetProjectByPathAsync(String projectPath) Task
+        +async GetProjectByNameAsync(String projectName) Task
+        +async GetDocumentByPathAsync(String documentPath) Task
+        +async GetAllCSharpProjectsAsync() Task
+    }
+    class MermaidGenerator {
+        +Generate(List types) String
+    }
+    class CodeProcessor {
+        +ProcessProject() Void
+        +ProcessSolution() Void
+        +ProcessSingleFile() Void
+    }
+    class GenerateMermaidCommand {
+        +static GenerateMermaidCommand Instance
+        +static async InitializeAsync(AsyncPackage package) Task
+    }
+    class ClassDiagramPackage {
+        +static const String PackageGuidString
+    }
+    class ProjectAnalyzer {
+        +async AnalyzeProjectAsync(Project project) Task
+        +async AnalyzeDocumentAsync(Document document) Task
+    }
+    class ClassDiagramOptions {
+        +Boolean IncludeFields
+        +Boolean IncludeProperties
+        +Boolean IncludeMethods
+        +Boolean IncludePrivateMembers
+        +Boolean ShowMethodParameters
+        +Boolean ShowPropertyAccessors
+        +Boolean ShowCompositionRelationships
+        +List IncludedNamespaces
+        +List ExcludedNamespaces
+    }
+    MermaidGenerator --> ClassDiagramOptions
+    GenerateMermaidCommand --> WorkspaceService
+    GenerateMermaidCommand --> ProjectAnalyzer
+    GenerateMermaidCommand --> MermaidGenerator

@@ -1,0 +1,86 @@
+﻿classDiagram
+    class FieldMemberInfo {
+        +String Name
+        +String Type
+        +String TypeFullName
+        +AccessibilityLevel Accessibility
+        +Boolean IsStatic
+        +Boolean IsReadOnly
+        +Boolean IsConst
+        +String ConstantValue
+    }
+    class PropertyMemberInfo {
+        +String Name
+        +String Type
+        +String TypeFullName
+        +AccessibilityLevel Accessibility
+        +Boolean IsStatic
+        +Boolean IsReadOnly
+        +Boolean IsVirtual
+        +Boolean IsOverride
+        +Boolean IsAbstract
+        +Boolean HasGetter
+        +Boolean HasSetter
+    }
+    class RTypeKind {
+        <<enumeration>>
+        Class
+        Interface
+        Enum
+        Record
+        Struct
+    }
+    class MethodMemberInfo {
+        +String Name
+        +String ReturnType
+        +String ReturnTypeFullName
+        +AccessibilityLevel Accessibility
+        +Boolean IsStatic
+        +Boolean IsVirtual
+        +Boolean IsOverride
+        +Boolean IsAbstract
+        +Boolean IsAsync
+        +List Parameters
+    }
+    class ParameterInfo {
+        +String Name
+        +String Type
+        +String TypeFullName
+        +Boolean IsOptional
+        +Boolean HasDefaultValue
+        +String DefaultValue
+    }
+    class RTypeInfo {
+        +String Name
+        +String FullName
+        +String Namespace
+        +RTypeKind Kind
+        +Boolean IsAbstract
+        +Boolean IsSealed
+        +Boolean IsStatic
+        +String BaseType
+        +String BaseTypeFullName
+        +List Interfaces
+        +List Properties
+        +List Methods
+        +List Fields
+        +List EnumMembers
+        +Boolean IsClass
+    }
+    class InterfaceReference {
+        +String Name
+        +String FullName
+    }
+    class AccessibilityLevel {
+        <<enumeration>>
+        Public
+        Private
+        Protected
+        Internal
+        ProtectedInternal
+        PrivateProtected
+    }
+    FieldMemberInfo --> AccessibilityLevel
+    PropertyMemberInfo --> AccessibilityLevel
+    MethodMemberInfo --> AccessibilityLevel
+    RTypeInfo --> RTypeKind

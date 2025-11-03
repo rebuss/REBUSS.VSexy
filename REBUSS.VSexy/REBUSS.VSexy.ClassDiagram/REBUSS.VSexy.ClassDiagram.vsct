@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CommandTable xmlns="http://schemas.microsoft.com/VisualStudio/2005-10-18/CommandTable" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <Extern href="stdidcmd.h"/>
+  <Extern href="vsshlids.h"/>
+
+  <Commands package="guidClassDiagramPackage">
+    <Groups>
+      <Group guid="guidClassDiagramPackageCmdSet" id="MyMenuGroup" priority="0x0600">
+        <Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_PROJNODE"/>
+      </Group>
+    </Groups>
+
+    <Buttons>
+      <Button guid="guidClassDiagramPackageCmdSet" id="GenerateMermaidCommandId" priority="0x0100" type="Button">
+        <Parent guid="guidClassDiagramPackageCmdSet" id="MyMenuGroup" />
+        <Strings>
+          <ButtonText>Generate Mermaid Diagram</ButtonText>
+        </Strings>
+      </Button>
+    </Buttons>
+  </Commands>
+
+  <Symbols>
+    <!-- Replace with your actual Package GUID from ClassDiagramPackage.cs -->
+    <GuidSymbol name="guidClassDiagramPackage" value="{b75ae447-3485-4437-a8d3-83c4daed539c}" />
+    
+    <GuidSymbol name="guidClassDiagramPackageCmdSet" value="{8962c9e8-bda2-49e2-9591-4bf8c0b4c23f}">
+      <IDSymbol name="MyMenuGroup" value="0x1020" />
+      <IDSymbol name="GenerateMermaidCommandId" value="0x0100" />
+    </GuidSymbol>
+  </Symbols>
+</CommandTable>
