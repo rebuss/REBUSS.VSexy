@@ -271,8 +271,7 @@ namespace REBUSS.VSexy.ClassDiagram
                 }
             }
         }
-        }
-
+        
         private string GetAccessModifier(AccessibilityLevel accessibility)
         {
             switch(accessibility)

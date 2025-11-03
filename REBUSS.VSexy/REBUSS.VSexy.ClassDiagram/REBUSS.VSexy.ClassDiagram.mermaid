@@ -1,4 +1,16 @@
 ﻿classDiagram
+    class IFileService {
+        <<interface>>
+        +abstract SaveDiagramAsync(DiagramGenerationResult result) Task
+        +abstract OpenFileAsync(String filePath) Task
+    }
+    class IDiagramGenerationService {
+        <<interface>>
+        +abstract GenerateAsync(SelectedItem selectedItem) Task
+    }
+    class DiagramGenerationService {
+        +async GenerateAsync(SelectedItem selectedItem) Task
+    }
     class WorkspaceService {
         +async GetWorkspaceAsync() Task
         +async GetProjectByPathAsync(String projectPath) Task
@@ -13,6 +25,31 @@
         +ProcessProject() Void
         +ProcessSolution() Void
         +ProcessSingleFile() Void
+    }
+    class IDialogService {
+        <<interface>>
+        +abstract ShowErrorAsync(String message) Task
+        +abstract ShowInfoAsync(String message) Task
+        +abstract ShowDiagramInfoAsync(DiagramGenerationResult result, String filePath) Task
+    }
+    class FileService {
+        +async SaveDiagramAsync(DiagramGenerationResult result) Task
+        +async OpenFileAsync(String filePath) Task
+    }
+    class DialogService {
+        +async ShowErrorAsync(String message) Task
+        +async ShowInfoAsync(String message) Task
+        +async ShowDiagramInfoAsync(DiagramGenerationResult result, String filePath) Task
+    }
+    class DiagramGenerationResult {
+        +Boolean Success
+        +String MermaidDiagram
+        +Int32 TypeCount
+        +String ProjectPath
+        +String SelectedFilePath
+        +String ErrorMessage
+        +static SuccessResult(String mermaidDiagram, Int32 typeCount, String projectPath, String selectedFilePath) DiagramGenerationResult
+        +static Failure(String errorMessage) DiagramGenerationResult
     }
     class GenerateMermaidCommand {
         +static GenerateMermaidCommand Instance
@@ -36,7 +73,13 @@
         +List IncludedNamespaces
         +List ExcludedNamespaces
     }
+    IDiagramGenerationService <|.. DiagramGenerationService
+    DiagramGenerationService --> WorkspaceService
+    DiagramGenerationService --> ProjectAnalyzer
+    DiagramGenerationService --> MermaidGenerator
     MermaidGenerator --> ClassDiagramOptions
-    GenerateMermaidCommand --> WorkspaceService
-    GenerateMermaidCommand --> ProjectAnalyzer
-    GenerateMermaidCommand --> MermaidGenerator
+    IFileService <|.. FileService
+    IDialogService <|.. DialogService
+    GenerateMermaidCommand --> IDialogService
+    GenerateMermaidCommand --> IDiagramGenerationService
+    GenerateMermaidCommand --> IFileService
