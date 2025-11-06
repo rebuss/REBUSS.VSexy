@@ -9,13 +9,31 @@
       <Group guid="guidClassDiagramPackageCmdSet" id="MyMenuGroup" priority="0x0600">
         <Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_PROJNODE"/>
       </Group>
+      <Group guid="guidClassDiagramPackageCmdSet" id="VSexyDiagramsSubMenuGroup" priority="0x0100">
+        <Parent guid="guidClassDiagramPackageCmdSet" id="VSexyDiagramsMenu"/>
+      </Group>
     </Groups>
+
+    <Menus>
+      <Menu guid="guidClassDiagramPackageCmdSet" id="VSexyDiagramsMenu" priority="0x0100" type="Menu">
+        <Parent guid="guidClassDiagramPackageCmdSet" id="MyMenuGroup"/>
+        <Strings>
+          <ButtonText>VSexy Diagrams</ButtonText>
+        </Strings>
+      </Menu>
+    </Menus>
 
     <Buttons>
       <Button guid="guidClassDiagramPackageCmdSet" id="GenerateMermaidCommandId" priority="0x0100" type="Button">
-        <Parent guid="guidClassDiagramPackageCmdSet" id="MyMenuGroup" />
+        <Parent guid="guidClassDiagramPackageCmdSet" id="VSexyDiagramsSubMenuGroup" />
         <Strings>
           <ButtonText>Generate Mermaid Diagram</ButtonText>
+        </Strings>
+      </Button>
+      <Button guid="guidClassDiagramPackageCmdSet" id="Generate3DDiagramCommandId" priority="0x0200" type="Button">
+        <Parent guid="guidClassDiagramPackageCmdSet" id="VSexyDiagramsSubMenuGroup" />
+        <Strings>
+          <ButtonText>3D Diagram</ButtonText>
         </Strings>
       </Button>
     </Buttons>
@@ -27,7 +45,10 @@
     
     <GuidSymbol name="guidClassDiagramPackageCmdSet" value="{8962c9e8-bda2-49e2-9591-4bf8c0b4c23f}">
       <IDSymbol name="MyMenuGroup" value="0x1020" />
+      <IDSymbol name="VSexyDiagramsMenu" value="0x1021" />
+      <IDSymbol name="VSexyDiagramsSubMenuGroup" value="0x1022" />
       <IDSymbol name="GenerateMermaidCommandId" value="0x0100" />
+      <IDSymbol name="Generate3DDiagramCommandId" value="0x0101" />
     </GuidSymbol>
   </Symbols>
 </CommandTable>

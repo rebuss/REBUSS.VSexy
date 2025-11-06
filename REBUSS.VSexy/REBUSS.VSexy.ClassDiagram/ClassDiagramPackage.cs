@@ -10,6 +10,7 @@ namespace REBUSS.VSexy.ClassDiagram
     [Guid(ClassDiagramPackage.PackageGuidString)]
     [ProvideMenuResource("Menus.ctmenu", 1)]
     [ProvideAutoLoad(Microsoft.VisualStudio.Shell.Interop.UIContextGuids.NoSolution, PackageAutoLoadFlags.BackgroundLoad)]
+    [ProvideToolWindow(typeof(Diagram3DToolWindow))]
     public sealed class ClassDiagramPackage : AsyncPackage
     {
         public const string PackageGuidString = "b75ae447-3485-4437-a8d3-83c4daed539c";
@@ -21,6 +22,7 @@ namespace REBUSS.VSexy.ClassDiagram
             System.Diagnostics.Debug.WriteLine("ClassDiagramPackage InitializeAsync started!");
 
             await GenerateMermaidCommand.InitializeAsync(this);
+            await Generate3DDiagramCommand.InitializeAsync(this);
 
             System.Diagnostics.Debug.WriteLine("ClassDiagramPackage InitializeAsync completed!");
         }

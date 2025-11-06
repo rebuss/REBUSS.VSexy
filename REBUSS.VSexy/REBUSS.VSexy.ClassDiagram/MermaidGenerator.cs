@@ -219,20 +219,48 @@ namespace REBUSS.VSexy.ClassDiagram
 
         private void GenerateRelationships(StringBuilder sb, List<RTypeInfo> types)
         {
-            var typeDict = types.ToDictionary(t => t.Name, t => t);
+            var typeDict = new Dictionary<string, RTypeInfo>();
+            
+            foreach (var type in types)
+            {
+                var key = string.IsNullOrEmpty(type.FullName) ? type.Name : type.FullName;
+                if (!typeDict.ContainsKey(key))
+                {
+                    typeDict.Add(key, type);
+                }
+            }
 
             foreach (var type in types)
             {
-                if (!string.IsNullOrEmpty(type.BaseType) && typeDict.ContainsKey(type.BaseType) && !string.Equals(type.BaseType, type.Name, StringComparison.Ordinal))
+                var typeKey = string.IsNullOrEmpty(type.FullName) ? type.Name : type.FullName;
+                
+                if (!string.IsNullOrEmpty(type.BaseTypeFullName) && typeDict.ContainsKey(type.BaseTypeFullName))
                 {
-                    sb.AppendLine($"    {type.BaseType} <|-- {type.Name}");
+                    var baseType = typeDict[type.BaseTypeFullName];
+                    if (!string.Equals(baseType.FullName, type.FullName, StringComparison.Ordinal))
+                    {
+                        sb.AppendLine($"    {baseType.Name} <|-- {type.Name}");
+                    }
+                }
+                else if (!string.IsNullOrEmpty(type.BaseType) && typeDict.ContainsKey(type.BaseType))
+                {
+                    var baseType = typeDict[type.BaseType];
+                    if (!string.Equals(baseType.Name, type.Name, StringComparison.Ordinal))
+                    {
+                        sb.AppendLine($"    {baseType.Name} <|-- {type.Name}");
+                    }
                 }
 
                 foreach (var iface in type.Interfaces)
                 {
-                    if (typeDict.ContainsKey(iface.Name) && !string.Equals(iface.Name, type.Name, StringComparison.Ordinal))
+                    var ifaceKey = string.IsNullOrEmpty(iface.FullName) ? iface.Name : iface.FullName;
+                    if (typeDict.ContainsKey(ifaceKey))
                     {
-                        sb.AppendLine($"    {iface.Name} <|.. {type.Name}");
+                        var ifaceType = typeDict[ifaceKey];
+                        if (!string.Equals(ifaceType.FullName, type.FullName, StringComparison.Ordinal))
+                        {
+                            sb.AppendLine($"    {ifaceType.Name} <|.. {type.Name}");
+                        }
                     }
                 }
 
@@ -249,25 +277,35 @@ namespace REBUSS.VSexy.ClassDiagram
 
             foreach (var field in type.Fields)
             {
-                if (typeDict.ContainsKey(field.Type) && !string.Equals(field.Type, type.Name, StringComparison.Ordinal))
+                var fieldKey = string.IsNullOrEmpty(field.TypeFullName) ? field.Type : field.TypeFullName;
+                if (typeDict.ContainsKey(fieldKey))
                 {
-                    relatedTypes.Add(field.Type);
+                    var fieldType = typeDict[fieldKey];
+                    if (!string.Equals(fieldType.FullName, type.FullName, StringComparison.Ordinal))
+                    {
+                        relatedTypes.Add(fieldType.Name);
+                    }
                 }
             }
 
             foreach (var property in type.Properties)
             {
-                if (typeDict.ContainsKey(property.Type) && !string.Equals(property.Type, type.Name, StringComparison.Ordinal))
+                var propertyKey = string.IsNullOrEmpty(property.TypeFullName) ? property.Type : property.TypeFullName;
+                if (typeDict.ContainsKey(propertyKey))
                 {
-                    relatedTypes.Add(property.Type);
+                    var propertyType = typeDict[propertyKey];
+                    if (!string.Equals(propertyType.FullName, type.FullName, StringComparison.Ordinal))
+                    {
+                        relatedTypes.Add(propertyType.Name);
+                    }
                 }
             }
 
-            foreach (var relatedType in relatedTypes)
+            foreach (var relatedTypeName in relatedTypes)
             {
-                if (!string.Equals(relatedType, type.Name, StringComparison.Ordinal))
+                if (!string.Equals(relatedTypeName, type.Name, StringComparison.Ordinal))
                 {
-                    sb.AppendLine($"    {type.Name} --> {relatedType}");
+                    sb.AppendLine($"    {type.Name} --> {relatedTypeName}");
                 }
             }
         }

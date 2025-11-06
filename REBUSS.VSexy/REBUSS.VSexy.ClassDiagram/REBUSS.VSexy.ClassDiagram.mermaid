@@ -4,6 +4,10 @@
         +abstract SaveDiagramAsync(DiagramGenerationResult result) Task
         +abstract OpenFileAsync(String filePath) Task
     }
+    class Generate3DDiagramCommand {
+        +static Generate3DDiagramCommand Instance
+        +static async InitializeAsync(AsyncPackage package) Task
+    }
     class IDiagramGenerationService {
         <<interface>>
         +abstract GenerateAsync(SelectedItem selectedItem) Task
@@ -41,6 +45,8 @@
         +async ShowInfoAsync(String message) Task
         +async ShowDiagramInfoAsync(DiagramGenerationResult result, String filePath) Task
     }
+    class Diagram3DToolWindow {
+    }
     class DiagramGenerationResult {
         +Boolean Success
         +String MermaidDiagram
@@ -55,12 +61,18 @@
         +static GenerateMermaidCommand Instance
         +static async InitializeAsync(AsyncPackage package) Task
     }
+    class Diagram3DToolWindowControl {
+        +InitializeComponent() Void
+    }
     class ClassDiagramPackage {
         +static const String PackageGuidString
     }
     class ProjectAnalyzer {
         +async AnalyzeProjectAsync(Project project) Task
         +async AnalyzeDocumentAsync(Document document) Task
+    }
+    class Diagram3DToolWindowControl {
+        +InitializeComponent() Void
     }
     class ClassDiagramOptions {
         +Boolean IncludeFields
