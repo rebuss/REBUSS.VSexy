@@ -6,5 +6,5 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800"
              Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}">
-    <wpf:WebView2 x:Name="webView" />
+    <wpf:WebView2 x:Name="Web" />
 </Grid>

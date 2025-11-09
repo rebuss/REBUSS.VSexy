@@ -6,17 +6,39 @@
 
   <Commands package="guidClassDiagramPackage">
     <Groups>
+      <!-- Grupa dla menu kontekstowego projektu -->
       <Group guid="guidClassDiagramPackageCmdSet" id="MyMenuGroup" priority="0x0600">
         <Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_PROJNODE"/>
       </Group>
+      
+      <!-- Grupa dla menu kontekstowego pliku .cs -->
+      <Group guid="guidClassDiagramPackageCmdSet" id="ItemMenuGroup" priority="0x0600">
+        <Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_ITEMNODE"/>
+      </Group>
+      
+      <!-- Submenu grupa dla projektu -->
       <Group guid="guidClassDiagramPackageCmdSet" id="VSexyDiagramsSubMenuGroup" priority="0x0100">
         <Parent guid="guidClassDiagramPackageCmdSet" id="VSexyDiagramsMenu"/>
+      </Group>
+      
+      <!-- Submenu grupa dla pliku .cs -->
+      <Group guid="guidClassDiagramPackageCmdSet" id="VSexyDiagramsItemSubMenuGroup" priority="0x0100">
+        <Parent guid="guidClassDiagramPackageCmdSet" id="VSexyDiagramsItemMenu"/>
       </Group>
     </Groups>
 
     <Menus>
+      <!-- Menu dla projektu -->
       <Menu guid="guidClassDiagramPackageCmdSet" id="VSexyDiagramsMenu" priority="0x0100" type="Menu">
         <Parent guid="guidClassDiagramPackageCmdSet" id="MyMenuGroup"/>
+        <Strings>
+          <ButtonText>VSexy Diagrams</ButtonText>
+        </Strings>
+      </Menu>
+      
+      <!-- Menu dla pliku .cs -->
+      <Menu guid="guidClassDiagramPackageCmdSet" id="VSexyDiagramsItemMenu" priority="0x0100" type="Menu">
+        <Parent guid="guidClassDiagramPackageCmdSet" id="ItemMenuGroup"/>
         <Strings>
           <ButtonText>VSexy Diagrams</ButtonText>
         </Strings>
@@ -24,14 +46,17 @@
     </Menus>
 
     <Buttons>
+      <!-- Generate Mermaid Diagram - dostępne na poziomie projektu -->
       <Button guid="guidClassDiagramPackageCmdSet" id="GenerateMermaidCommandId" priority="0x0100" type="Button">
         <Parent guid="guidClassDiagramPackageCmdSet" id="VSexyDiagramsSubMenuGroup" />
         <Strings>
           <ButtonText>Generate Mermaid Diagram</ButtonText>
         </Strings>
       </Button>
-      <Button guid="guidClassDiagramPackageCmdSet" id="Generate3DDiagramCommandId" priority="0x0200" type="Button">
-        <Parent guid="guidClassDiagramPackageCmdSet" id="VSexyDiagramsSubMenuGroup" />
+      
+      <!-- 3D Diagram - dostępne tylko dla pliku .cs -->
+      <Button guid="guidClassDiagramPackageCmdSet" id="Generate3DDiagramCommandId" priority="0x0100" type="Button">
+        <Parent guid="guidClassDiagramPackageCmdSet" id="VSexyDiagramsItemSubMenuGroup" />
         <Strings>
           <ButtonText>3D Diagram</ButtonText>
         </Strings>
@@ -40,13 +65,15 @@
   </Commands>
 
   <Symbols>
-    <!-- Replace with your actual Package GUID from ClassDiagramPackage.cs -->
     <GuidSymbol name="guidClassDiagramPackage" value="{b75ae447-3485-4437-a8d3-83c4daed539c}" />
     
     <GuidSymbol name="guidClassDiagramPackageCmdSet" value="{8962c9e8-bda2-49e2-9591-4bf8c0b4c23f}">
       <IDSymbol name="MyMenuGroup" value="0x1020" />
+      <IDSymbol name="ItemMenuGroup" value="0x1023" />
       <IDSymbol name="VSexyDiagramsMenu" value="0x1021" />
+      <IDSymbol name="VSexyDiagramsItemMenu" value="0x1024" />
       <IDSymbol name="VSexyDiagramsSubMenuGroup" value="0x1022" />
+      <IDSymbol name="VSexyDiagramsItemSubMenuGroup" value="0x1025" />
       <IDSymbol name="GenerateMermaidCommandId" value="0x0100" />
       <IDSymbol name="Generate3DDiagramCommandId" value="0x0101" />
     </GuidSymbol>
